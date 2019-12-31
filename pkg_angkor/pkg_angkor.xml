@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="package" version="3.0" method="upgrade">
+	<name>Package - Angkor</name>
+	<packagename>angkor</packagename>
+	<packager>Angkor</packager>
+	<author>serey@sankuru.biz</author>
+	<packagerurl>http://www.angkor-extension.com</packagerurl>
+	<copyright>Copyright (C) 2013 angkor-extension.com. All Rights Reserved.</copyright>
+	<license>GNU General Public License version 2 or later.</license>
+	<creationDate>February 2013</creationDate>
+	<description>
+	<![CDATA[Use the component to edit the joomla core emails such as User
+Registration Email (with activation or without activation), User
+Registration Email to Administrator, Forget Password email and Forget
+User Name email, and optionally send them out as html email.]]>
+	</description>
+	<version>3.0.4</version>
+	<scriptfile>installer.php</scriptfile>
+	<!-- EXTENSIONS -->
+	<files folder="packages">	
+		<file type="component" id="angkor" group="system">com_angkor.zip</file>		
+		<file type="plugin" id="angkor" group="system">plg_system_angkor.zip</file>		
+		<file type="plugin" id="joomla" group="angkor">plg_angkor_joomla.zip</file>		
+	</files>
+</extension>

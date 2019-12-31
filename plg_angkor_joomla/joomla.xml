@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="plugin" group="angkor" method="upgrade">
+	<name>Angkor - Joomla</name>
+	<version>3.0.3</version>	
+	<copyright></copyright>
+	<creationDate>March 2013</creationDate>
+	<productName>Angkor Email Template Editor for Joomla</productName>
+	<author>Sankuru Development Team</author>
+	<authorEmail>serey@sankuru.biz</authorEmail>
+	<authorUrl>http://www.sankuru.biz</authorUrl>	
+	<license>This extension is released under the GNU/GPL License</license>
+	
+	<description></description>
+	<files>
+		<filename plugin="joomla">joomla.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">languages/en-GB/en-GB.plg_angkor_joomla.ini</language>
+	</languages>	
+</extension>
