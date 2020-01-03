@@ -28,7 +28,7 @@ class AngkorControllerAngkor extends angkorController
 		$this->redirect('index.php?option=com_angkor',Text::_('SAVE_SUCCESS')); 
 	}
 	function apply()
-	{
+	{ 
 		$model = $this->getModel('angkor');
 		$email = $model->save_mail();		
 		$data=array();		

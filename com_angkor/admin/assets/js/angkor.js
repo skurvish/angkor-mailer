@@ -186,7 +186,7 @@ function ajaxSubmitEmailForm(){
 	var hash =window.location.hash;
 	var frm = jQuery('#adminForm');
 	jQuery('#task').val('apply');
-	
+
 	var embed_image=0;
 	if(document.adminForm.embed_image.checked)
 		embed_image=1;

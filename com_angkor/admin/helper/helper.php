@@ -8,6 +8,10 @@ use Joomla\CMS\Plugin\PluginHelper;
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die( 'Restricted access' );
 
+/* Include the latest emogrifier */
+require_once(JPATH_ADMINISTRATOR.'/components/com_angkor/helper/vendor/autoload.php');
+use Pelago\Emogrifier\CssInliner;;
+
 //jimport('joomla.language.helper');
 class angkor_Helper
 {
@@ -241,7 +245,7 @@ class angkor_Helper
 	}
 	function getUserInfobyEmail($email,$field_name)
 	{
-		$db =& Factory::getDBO();
+		$db = Factory::getDBO();
 		$query = "SELECT `{$field_name}` 
 				FROM `#__users` 
 				WHERE `email`=". $db->Quote($email);
@@ -317,16 +321,17 @@ class angkor_Helper
 		return str_replace($tobereplaced,$replacedby,$message_body);
 	}	
 	function getEmailsList(){
-//		PluginHelper::importPlugin('angkor');		
+		PluginHelper::importPlugin('angkor');		
 		$emails = array();		
 		//$results = $Factory::getApplication()->triggerEvent('onEmailsList', array ($emails));
-		
+		$dispatcher = JEventDispatcher::getInstance();
 		$angkorPlgs = PluginHelper::getPlugin('angkor');
+
 		foreach($angkorPlgs as $plg){
 			$className = 'plg'.$plg->type.$plg->name;
 			if(class_exists($className)){
-//				$plgObj = new $className($dispatcher,array());
-				$plgObj = new $className(null,array());
+				$plgObj = new $className($dispatcher,array());
+//				$plgObj = new $className(null,array());
 				if(method_exists($plgObj,'onEmailsList')){
 					$plgObj->onEmailsList($emails);
 				}
@@ -456,15 +461,14 @@ class angkor_Helper
 		return $data;
 	}
 	function parsingEmailCSS($email,$embed_image=false,$css_content=''){
-		if(!class_exists('AngkorEmogrifier'))
-			require_once(JPATH_SITE.'/administrator/components/com_angkor/helper/emogrifier/emogrifier.php');
 		
 		if($css_content==''){
 			$css = angkor_Helper::getCSS();		
-			$css_content = $css->css;
+			if (!empty($css)) {
+				$css_content = $css->css;
+			}
 		}
-		$Emogrifier = new AngkorEmogrifier($email->Body,$css_content);		
-		$email->Body = $Emogrifier->emogrify();				
+		$email->Body = CssInliner::fromHtml($email->Body)->inlineCss($css_content)->render();;				
 		
 		if($embed_image AND method_exists($email,'MsgHTML')){	
 			$email->MsgHTML($email->Body,JPATH_SITE);

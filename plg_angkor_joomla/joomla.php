@@ -515,7 +515,7 @@ class plgAngkorJoomla extends CMSPlugin
 	function getData(){
 		$data	= Factory::getApplication()->input->get('jform', array(), 'ARRAY');
 		if(COUNT($data)==0)
-			$data = Factory::getApplication()->input->get('post', '', 'RAW');
+			$data = Factory::getApplication()->input->get('post', array(), 'ARRAY');
 		
 		$option = Factory::getApplication()->input->get('option');
 		if($option=='com_users'){

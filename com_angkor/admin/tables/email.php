@@ -4,7 +4,7 @@ use Joomla\CMS\Table\Table;
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die( 'Restricted access' );
 
-class JTableEmail extends Table
+class TableEmail extends Table
 {
 	function __construct( &$_db )
 	{

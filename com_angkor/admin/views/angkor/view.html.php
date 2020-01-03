@@ -11,18 +11,14 @@ class AngkorViewAngkor extends HtmlView
 {
 	function display($tpl = null)
 	{
-		global $mainframe, $option;
 		$model = $this->getModel();
 		
-		$languages_list = $model->get_language_list('language');
-		$this->assignRef('languages_list',$languages_list);
+		$this->languages_list = $model->get_language_list('language');
 		
 
-		$emailslist = angkor_Helper::getEmailsList();
-		$this->assignRef('emailslist',$emailslist);
-		
-		$css = $model->getCSS();
-		$this->assignRef('css',$css);		
+		$this->emailslist = angkor_Helper::getEmailsList();
+
+		$this->css = $model->getCSS();		
 
 		$this->addToolbar();				
 		parent::display($tpl);

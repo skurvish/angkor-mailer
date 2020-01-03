@@ -7,7 +7,7 @@ defined('_JEXEC') or die( 'Restricted access' );
 class AngkorControllerCSS extends angkorController
 {
 	function apply()
-	{			
+	{		
 		$model = $this->getModel('css');
 		$model->saveCSS();
 		

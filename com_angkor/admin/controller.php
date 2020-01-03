@@ -1,4 +1,5 @@
 <?php
+use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Language\Text;
 
@@ -23,10 +24,10 @@ class angkorController extends BaseController
 	/**
 	 * Displays a view
 	 */
-	function display( )
-	{
-		parent::display();
-	}
+//	function display( )
+//	{
+//		parent::display();
+//	}
 	
 	function ajax(){			
 		$code = JFactory::getApplication()->input->get('code');

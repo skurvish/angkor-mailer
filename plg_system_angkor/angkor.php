@@ -51,7 +51,7 @@ class plgSystemAngkor extends CMSPlugin
 	function onAfterInitialise(){		
 		jimport('joomla.mail.mail');
 		Factory::$mailer = new angkorMailer;
-		
+
 		$conf = Factory::getConfig();
 		$smtpauth = ($conf->get('smtpauth') == 0) ? null : 1;
 		$smtpuser = $conf->get('smtpuser');

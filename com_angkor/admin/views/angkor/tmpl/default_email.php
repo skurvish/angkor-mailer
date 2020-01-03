@@ -1,10 +1,12 @@
 <?php 
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Factory;
 
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die( 'Restricted access' );
 
+	$option = JFactory::getApplication()->input->get('option');
 	echo HTMLHelper::_('tabs.start','tabs-'.$option);
 		$label = Text::_('EMAIL_TAB1');
 		echo HTMLHelper::_('tabs.panel',$label, 'tab-1');

@@ -37,10 +37,12 @@ class AngkorModelCSS extends BaseDatabaseModel
 		return $css;
 	}
 	function saveCSS(){
+		$columns = ['id'=>'INT', 'css'=>'RAW'];
+
 		$data_css = angkor_Helper::getCSS();		
-		
-		$css = Table::getInstance('css', 'JTable',array());		
-		$css->bind(Factory::getApplication()->input->get('post'));
+	
+		$css = Table::getInstance('css', 'Table',array());		
+		$css->bind(Factory::getApplication()->input->getArray($columns));
 		if($data_css)	
 			$css->id = $data_css->id;
 		$css->store();		

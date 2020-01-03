@@ -3,7 +3,7 @@ use Joomla\CMS\Table\Table;
 
 defined('_JEXEC') or die( 'Restricted access' );
 
-class JTableCSS extends Table
+class TableCSS extends Table
 {
 	function __construct( &$_db )
 	{

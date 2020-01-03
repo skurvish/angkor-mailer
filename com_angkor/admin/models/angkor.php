@@ -134,17 +134,24 @@ class AngkorModelAngkor extends BaseDatabaseModel
 
 		return $result;
 	}	
-	function save_mail(){
-		$db = Factory::getDBO();
-		
-		$row = Table::getInstance('email', 'Table',array());				
-		$row->bind(JFactory::getApplication()->input->get('post', '', 'RAW'));
-		if($row->embed_image)
-			$row->embed_image=1;
+	function save_mail(){ 
+		$columns = ['id'=>'INT', 
+					'code'=>'STRING', 
+					'subject'=>'STRING', 
+					'body'=>'RAW', 
+					'sender_name'=>'STRING', 
+					'sender_email'=>'STRING',
+					'lang'=>'STRING',
+					'embed_image'=>'INT',
+				];
+		$email = Table::getInstance('email', 'Table', array());				
+		$email->bind(Factory::getApplication()->input->getArray($columns));
+		if($email->embed_image)
+			$email->embed_image = 1;
 		else
-			$row->embed_image=0;
-		$row->store();
-		return $row;
+			$email->embed_image = 0;
+		$email->store();
+		return $email;
 	}
 	function getCSS()
 	{
