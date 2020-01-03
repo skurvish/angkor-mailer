@@ -14,12 +14,12 @@ Registration Email (with activation or without activation), User
 Registration Email to Administrator, Forget Password email and Forget
 User Name email, and optionally send them out as html email.]]>
 	</description>
-	<version>3.0.4</version>
+	<version>{version}</version>
 	<scriptfile>installer.php</scriptfile>
 	<!-- EXTENSIONS -->
 	<files folder="packages">	
-		<file type="component" id="angkor" group="system">com_angkor.zip</file>		
-		<file type="plugin" id="angkor" group="system">plg_system_angkor.zip</file>		
-		<file type="plugin" id="joomla" group="angkor">plg_angkor_joomla.zip</file>		
+		<file type="component" id="angkor" group="system">com_angkor_{version}.zip</file>		
+		<file type="plugin" id="angkor" group="system">plg_system_angkor_{version}.zip</file>		
+		<file type="plugin" id="joomla" group="angkor">plg_angkor_joomla_{version}.zip</file>		
 	</files>
 </extension>
