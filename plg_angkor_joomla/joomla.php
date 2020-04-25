@@ -19,9 +19,9 @@ class plgAngkorJoomla extends CMSPlugin
 		$this->loadLanguage();		
 		require_once(JPATH_SITE.'/administrator/components/com_angkor/helper/helper.php');
 	}
-	function onEmailsList(&$emails){
+	function onPlgAngkorEmailsList(&$emails){
 		$joomlaemails =  array();
-		
+
 		$code = 'SEND_MSG_ACTIVATE';
 		$joomlaemails[]=array('code'=>$code,'title'=>Text::_($code.'_OPTION'),'to'=>Text::_('TO_USER'),'description'=>Text::_($code.'_DESC'));
 		
@@ -469,7 +469,7 @@ class plgAngkorJoomla extends CMSPlugin
 	* This method is used to call additional email to send out beside Joomla standard email. Example : "Send copy of message to admin"	
 	*/
 	function onAdditionalEmail($systemEmail,$nCounter){
-		$option = JFactory::getApplication()->input->get('option');
+		$option = Factory::getApplication()->input->get('option');
 		$task = Factory::getApplication()->input->get('task');
 		if($option=='com_contact') {		
 			if($task=='submit'){
@@ -534,7 +534,7 @@ class plgAngkorJoomla extends CMSPlugin
 				$row  = $this->getUserByColumn($email);
 				
 			if(Factory::getApplication()->input->get('token', '', 'STRING')){
-				$row  = $this->getUserByColumn(JFactory::getApplication()->input->get('token', '', 'RAW'),'activation');
+				$row  = $this->getUserByColumn(Factory::getApplication()->input->get('token', '', 'RAW'),'activation');
 			}
 			
 			if($row){

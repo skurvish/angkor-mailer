@@ -19,7 +19,7 @@ class AngkorModelAngkor extends BaseDatabaseModel
 
 	}
 	function getnewEmail(){
-		$email = Table::getInstance('emailmsg', 'JTable',array());		
+		$email = Table::getInstance('emailmsg', 'Table',array());		
 		$email->bind(Factory::getApplication()->input->get('post'));
 		return $email;
 	}

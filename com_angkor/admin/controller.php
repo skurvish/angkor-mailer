@@ -30,7 +30,7 @@ class angkorController extends BaseController
 //	}
 	
 	function ajax(){			
-		$code = JFactory::getApplication()->input->get('code');
+		$code = Factory::getApplication()->input->get('code');
 		$lang = Factory::getApplication()->input->get('lang');
 		
 		$data = angkor_Helper::getEmail($code,$lang);

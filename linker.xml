@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Usage - run  phing -f linker.xml -Dp=/var/www/je -->
+
+<project name="linker" default="link" basedir=".">
+    <property name="URI.base" value="./"/>
+    <resolvepath propertyName="URI.base" file="${URI.base}"/>
+    <property name="p" value="" />
+    <property name="component" value="com_angkor"/>
+    <property name="rootPath" value="${URI.base}"/>
+
+    <target name="link" description="Build all targets !! ">
+
+        <echo>Current Path: ${rootPath}</echo>
+        <echo>Target Path: ${p}</echo>
+
+        <!-- Delete folders, but don't worry if it fails as it could be a symbolic link -->
+		<delete dir="${p}/administrator/components/${component}/" includeemptydirs="true" verbose="true" failonerror="false" />
+		<delete dir="${p}/plugins/angkor/joomla/" includeemptydirs="true" verbose="true" failonerror="false" />
+		<delete dir="${p}/plugins/system/angkor/" includeemptydirs="true" verbose="true" failonerror="false" />
+
+        <!-- Create System Links -->
+        <symlink target="${rootPath}/com_angkor/admin" link="${p}/administrator/components/${component}"  overwrite="true" />
+        <symlink target="${rootPath}/plg_angkor_joomla" link="${p}/plugins/angkor/joomla" overwrite="true" />
+        <symlink target="${rootPath}/plg_system_angkor" link="${p}/plugins/system/angkor" overwrite="true" />
+
+        <!-- Language System Links -->
+        <symlink target="${rootPath}/com_angkor/admin/en-GB.${component}.ini" link="${p}/administrator/language/en-GB/en-GB.${component}.ini" overwrite="true" />
+        <symlink target="${rootPath}/com_angkor/admin/en-GB.${component}.sys.ini" link="${p}/administrator/language/en-GB/en-GB.${component}.sys.ini" overwrite="true" />
+		<symlink target="${rootPath}/plg_angkor_joomla/languages/en-GB/en-GB.plg_angkor_joomla.ini" link="${p}/administrator/language/en-GB/en-GB.plg_angkor_joomla.ini" overwrite="true" />
+
+    </target>
+</project>

@@ -15,7 +15,7 @@ defined('_JEXEC') or die( 'Restricted access' );
 				</div>
 				<div class="emails" id="emails">
 				<?php
-					$option = JFactory::getApplication()->input->get('option');
+					$option = Factory::getApplication()->input->get('option');
 					echo HTMLHelper::_('sliders.start','sliders-'.$option);
 					$i=0;
 					foreach($this->emailslist as $key=>$emails){

@@ -324,23 +324,9 @@ class angkor_Helper
 		PluginHelper::importPlugin('angkor');		
 		$emails = array();		
 		//$results = $Factory::getApplication()->triggerEvent('onEmailsList', array ($emails));
-		$dispatcher = JEventDispatcher::getInstance();
 		$angkorPlgs = PluginHelper::getPlugin('angkor');
+		Factory::getApplication()->triggerEvent('onPlgAngkorEmailsList', array(&$emails));
 
-		foreach($angkorPlgs as $plg){
-			$className = 'plg'.$plg->type.$plg->name;
-			if(class_exists($className)){
-				$plgObj = new $className($dispatcher,array());
-//				$plgObj = new $className(null,array());
-				if(method_exists($plgObj,'onEmailsList')){
-					$plgObj->onEmailsList($emails);
-				}
-			}
-		}
-		
-		//echo '<pre>';		print_R($angkorPlgs);		echo '</pre>';
-		//echo '<pre>';		print_R($emails);		echo '</pre>';
-		
 		return $emails;		
 	}
 	function loadAssets(){
@@ -376,7 +362,7 @@ class angkor_Helper
 	function getAvailableFieldParameters($code)
 	{
 		if($code=='')
-			$code=JFactory::getApplication()->input->get('code', '', 'STRING');
+			$code=Factory::getApplication()->input->get('code', '', 'STRING');
 			
 		if($code)
 		{
