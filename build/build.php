@@ -14,11 +14,12 @@ $package = '../pkg_angkor/';
 /* This script expects to be run from within the build directory */
 function zipit($what, $where = '../') {
 	global $version, $location;
+	/* first we take a copy of the what we are zipping */
+
 	/* First update the version number in the xml file */
 	$xmlfile = '../'.$what['folder'].'/'.$what['xml'].'.xml';
-	$xml = file_get_contents($xmlfile.'.tmpl'); ;
+	$xml = file_get_contents($xmlfile); ;
 	$xml = str_replace('{version}', $version, $xml);
-	file_put_contents($xmlfile, $xml);
 
 	$zip = new ZipArchive;
 	$zip->open($where.$what['folder'].'_'.$version.'.zip', ZipArchive::CREATE | ZIPARCHIVE::OVERWRITE);
@@ -28,7 +29,7 @@ function zipit($what, $where = '../') {
 
 	foreach ($files as $name => $file)
 	{
-	    if (strpos($name, $xmlfile.'.tmpl') === 0) continue;	/* Ignore the xml template */
+	    if (strpos($name, $xmlfile) === 0) continue;	/* Ignore the xml file*/
 	    // Get real and relative path for current file
 	    $filePath = $file->getPathName();
 	    $relativePath = substr($filePath, strlen($what['folder'])+4);
@@ -39,10 +40,10 @@ function zipit($what, $where = '../') {
 	    }
 	}
 
+	/* Insert the updated xml file */
+	$zip->addFromString($what['xml'].'.xml', $xml);
 	// Zip archive will be created only after closing object
 	$zip->close();
-	/* And remove the modified xml file */
-	unlink($xmlfile);
 }
 /* Make sure the packages directory exists and create it if it does not */
 if (!file_exists($location) && !is_dir($location)) {
