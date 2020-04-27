@@ -8,6 +8,8 @@ use Joomla\CMS\User\UserHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 
+use Skurvish\Angkor\AngkorHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die( 'Restricted access' );
 
@@ -17,7 +19,6 @@ class plgAngkorJoomla extends CMSPlugin
 	{
 		parent::__construct($subject, $config);
 		$this->loadLanguage();		
-		require_once(JPATH_SITE.'/administrator/components/com_angkor/helper/helper.php');
 	}
 	function onPlgAngkorEmailsList(&$emails){
 		$joomlaemails =  array();
@@ -564,7 +565,7 @@ class plgAngkorJoomla extends CMSPlugin
 	function parseEmail($code,$systemEmail,$data){
 		$app = Factory::getApplication();
 		$lang = Factory::getApplication()->input->get('lang');
-		$email = angkor_Helper::getEmail($code,$lang);
+		$email = AngkorHelper::getEmail($code,$lang);
 		$systemEmail->embed_image = $email['embed_image'];
 		
 		$finds = array();
@@ -584,7 +585,7 @@ class plgAngkorJoomla extends CMSPlugin
 				
 				$replaces[]=$data['name'];
 				$replaces[]=$data['username'];						
-				$replaces[]=angkor_Helper::convertURL($data['siteurl'].'index.php?option=com_users&task=registration.activate&token='.$data['activation']);	
+				$replaces[]=AngkorHelper::convertURL($data['siteurl'].'index.php?option=com_users&task=registration.activate&token='.$data['activation']);	
 				
 				if(isset($data['password_clear']))
 					$replaces[]=$data['password_clear'];
@@ -593,7 +594,7 @@ class plgAngkorJoomla extends CMSPlugin
 				
 									
 				if($code=='SEND_MSG_ADMIN')
-					$replaces[]=angkor_Helper::convertEmail($data['email']);
+					$replaces[]=AngkorHelper::convertEmail($data['email']);
 				else
 					$replaces[]=$data['email'];
 					
@@ -616,7 +617,7 @@ class plgAngkorJoomla extends CMSPlugin
 				$user = Factory::getUser($data['id']);
 				$replaces[]=$data['name'];
 				$replaces[]=$data['username'];
-				$replaces[]=angkor_Helper::convertURL($data['siteurl'].'index.php?option=com_users&task=registration.activate&token='.$user->activation);
+				$replaces[]=AngkorHelper::convertURL($data['siteurl'].'index.php?option=com_users&task=registration.activate&token='.$user->activation);
 				$replaces[]=$data['email'];
 				
 				break;
@@ -694,7 +695,7 @@ class plgAngkorJoomla extends CMSPlugin
 				$replaces[]=$data['name'];
 				$replaces[]=$data['username'];
 				$replaces[]=$token;
-				$replaces[]=angkor_Helper::convertURL(Route::_($link, true, $mode));
+				$replaces[]=AngkorHelper::convertURL(Route::_($link, true, $mode));
 				
 				break;
 			/*case 'SEND_MSG_AUTHORIZE':
@@ -712,11 +713,11 @@ class plgAngkorJoomla extends CMSPlugin
 				$finds[]='{adminname}';
 				
 				$replaces[]=$data['contact_name'];
-				$replaces[]=angkor_Helper::convertEmail($data['contact_email']);
+				$replaces[]=AngkorHelper::convertEmail($data['contact_email']);
 				$replaces[]=$data['contact_subject'];
 				$replaces[]=$data['contact_message'];				
 				$replaces[]=$data['contact']->name;
-				$replaces[]=angkor_Helper::convertEmail($data['contact']->email_to);			
+				$replaces[]=AngkorHelper::convertEmail($data['contact']->email_to);			
 				
 				$row  = $this->getUserByColumn($systemEmail->to[0][0]);
 				if($row)
@@ -756,7 +757,7 @@ class plgAngkorJoomla extends CMSPlugin
 			case 'SEND_MSG_ADMIN_ACTIVATE_2': // When user confirm their email address
 			case 'SEND_MSG_ADMIN_ACTIVATE_3': // When admin activate user address
 			case 'ADD_NEW_USER':
-				angkor_Helper::findreplaceuserid($data['email'],$finds,$replaces);
+				AngkorHelper::findreplaceuserid($data['email'],$finds,$replaces);
 				break;
 			case 'SEND_MSG_TO_CONTACT':
 			case 'SEND_COPY_MSG_TO_USER':
@@ -779,13 +780,13 @@ class plgAngkorJoomla extends CMSPlugin
 		$replaces[]=$app->getCfg('fromname');
 		$replaces[]=$app->getCfg('mailfrom');
 		$replaces[]= $app->getCfg('sitename');
-		$replaces[]= angkor_Helper::convertURL(Uri::root());		
-		$replaces[]= angkor_Helper::convertURL($uri->toString(array('scheme','host')).Route::_('index.php?option=com_users&view=login'));	
+		$replaces[]= AngkorHelper::convertURL(Uri::root());		
+		$replaces[]= AngkorHelper::convertURL($uri->toString(array('scheme','host')).Route::_('index.php?option=com_users&view=login'));	
 				
 		$email['subject']=str_replace($finds,$replaces,$email['subject']);
 		$email['body']=str_replace($finds,$replaces,$email['body']);
 		
-		//$email['body'] = angkor_Helper::convertBodyImage_Href($email['body']);
+		//$email['body'] = AngkorHelper::convertBodyImage_Href($email['body']);
 		
 		$email['sender_name']=str_replace($finds,$replaces,$email['sender_name']);
 		$email['sender_email']=str_replace($finds,$replaces,$email['sender_email']);		

@@ -18,11 +18,13 @@
 		<delete dir="${p}/administrator/components/${component}/" includeemptydirs="true" verbose="true" failonerror="false" />
 		<delete dir="${p}/plugins/angkor/joomla/" includeemptydirs="true" verbose="true" failonerror="false" />
 		<delete dir="${p}/plugins/system/angkor/" includeemptydirs="true" verbose="true" failonerror="false" />
+        <delete dir="${p}/libraries/skurvish/angkor/" includeemptydirs="true" verbose="true" failonerror="false" />
 
         <!-- Create System Links -->
         <symlink target="${rootPath}/com_angkor/admin" link="${p}/administrator/components/${component}"  overwrite="true" />
         <symlink target="${rootPath}/plg_angkor_joomla" link="${p}/plugins/angkor/joomla" overwrite="true" />
         <symlink target="${rootPath}/plg_system_angkor" link="${p}/plugins/system/angkor" overwrite="true" />
+        <symlink target="${rootPath}/lib_angkor" link="${p}/libraries/skurvish/angkor" overwrite="true" />
 
         <!-- Language System Links -->
         <symlink target="${rootPath}/com_angkor/admin/en-GB.${component}.ini" link="${p}/administrator/language/en-GB/en-GB.${component}.ini" overwrite="true" />

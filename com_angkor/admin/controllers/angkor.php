@@ -2,6 +2,8 @@
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
 
+use Skurvish\Angkor\AngkorHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die( 'Restricted access' );
 
@@ -14,10 +16,10 @@ class AngkorControllerAngkor extends angkorController
 			exit(0);
 		$email = Factory::getMailer();
 		$email->Body = $body;
-		//$body = angkor_Helper::parsingEmailCSS($email,true); //Embed Image
+		//$body = AngkorHelper::parsingEmailCSS($email,true); //Embed Image
 		$mycss = Factory::getApplication()->input->get('mycss','','RAW');			
 		
-		$body = angkor_Helper::parsingEmailCSS($email,false,$mycss); //Direct Link Image
+		$body = AngkorHelper::parsingEmailCSS($email,false,$mycss); //Direct Link Image
 		echo $email->Body;
 		exit(0);
 	}

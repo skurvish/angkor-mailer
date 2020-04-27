@@ -1,4 +1,7 @@
 <?php
+
+namespace Skurvish\Angkor;
+
 use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Language\LanguageHelper;
@@ -12,14 +15,14 @@ defined('_JEXEC') or die( 'Restricted access' );
 require_once(JPATH_ADMINISTRATOR.'/components/com_angkor/helper/vendor/autoload.php');
 use Pelago\Emogrifier\CssInliner;;
 
-//jimport('joomla.language.helper');
-class angkor_Helper
+class AngkorHelper
 {
+	
 	function get_angkor_email($code,$data)
 	{
 		$language = Factory::getLanguage();
-		$select_language = angkor_Helper::get_selected_language($language->get('tag'));
-		$email = angkor_Helper::parse_email($code,$select_language->lang_id,$data);
+		$select_language = self::get_selected_language($language->get('tag'));
+		$email = self::parse_email($code,$select_language->lang_id,$data);
 		return $email;
 	}
 	function get_email($code,$lang_id)
@@ -35,7 +38,7 @@ class angkor_Helper
 	function parse_email($code,$lang_id,$data)
 	{
 		$app		= Factory::getApplication();
-		$email = angkor_Helper::get_email($code,$lang_id);
+		$email = self::get_email($code,$lang_id);
 		if(!$email)
 			return false;
 		$finds = array();
@@ -56,7 +59,7 @@ class angkor_Helper
 				
 				$replaces[]=$data['name'];
 				$replaces[]=$data['username'];						
-				$replaces[]=angkor_Helper::convertURL($data['siteurl'].'index.php?option=com_users&task=registration.activate&token='.$data['activation']);	
+				$replaces[]=self::convertURL($data['siteurl'].'index.php?option=com_users&task=registration.activate&token='.$data['activation']);	
 				$replaces[]=$data['password_clear'];
 				
 				if(isset($data['adminname']))		
@@ -65,7 +68,7 @@ class angkor_Helper
 					$replaces[]='';
 					
 				if($code=='SEND_MSG_ADMIN')
-					$replaces[]=angkor_Helper::convertEmail($data['email']);
+					$replaces[]=self::convertEmail($data['email']);
 				else
 					$replaces[]=$data['email'];
 					
@@ -78,7 +81,7 @@ class angkor_Helper
 				
 				$replaces[]=$data['name'];
 				$replaces[]=$data['username'];
-				$replaces[]=angkor_Helper::convertURL($data['siteurl'].'index.php?option=com_users&task=registration.activate&token='.$data['activation']);
+				$replaces[]=self::convertURL($data['siteurl'].'index.php?option=com_users&task=registration.activate&token='.$data['activation']);
 				$replaces[]=$data['email'];
 				
 				break;
@@ -97,8 +100,8 @@ class angkor_Helper
 				$finds[]='{siteurl}';
 				
 				$replaces[]=$data['username'];
-				$replaces[]=angkor_Helper::convertURL($data['link_text']);				
-				$replaces[]=angkor_Helper::convertURL($data['link_text']);								
+				$replaces[]=self::convertURL($data['link_text']);				
+				$replaces[]=self::convertURL($data['link_text']);								
 				break;
 			case 'PASSWORD_RESET_CONFIRMATION':
 				$finds[]='{name}';
@@ -110,8 +113,8 @@ class angkor_Helper
 				$replaces[]=$data['name'];
 				$replaces[]=$data['username'];
 				$replaces[]=$data['token'];
-				$replaces[]=angkor_Helper::convertURL($data['link_text']);	
-				$replaces[]=angkor_Helper::convertURL($data['link_text']);	
+				$replaces[]=self::convertURL($data['link_text']);	
+				$replaces[]=self::convertURL($data['link_text']);	
 				break;
 			case 'SEND_MSG_AUTHORIZE':
 				break;
@@ -127,11 +130,11 @@ class angkor_Helper
 				$finds[]='{adminname}';
 				
 				$replaces[]=$data['contact_name'];
-				$replaces[]=angkor_Helper::convertEmail($data['contact_email']);
+				$replaces[]=self::convertEmail($data['contact_email']);
 				$replaces[]=$data['contact_subject'];
 				$replaces[]=$data['contact_message'];				
 				$replaces[]=$data['contact']->name;
-				$replaces[]=angkor_Helper::convertEmail($data['contact']->email_to);			
+				$replaces[]=self::convertEmail($data['contact']->email_to);			
 								
 				if(isset($data['adminname']))
 					$replaces[]=$data['adminname'];
@@ -157,7 +160,7 @@ class angkor_Helper
 			case 'SEND_MSG_ADMIN_ACTIVATE_2': // When user confirm their email address
 			case 'SEND_MSG_ADMIN_ACTIVATE_3': // When admin activate user address
 			case 'ADD_NEW_USER':
-				angkor_Helper::findreplaceuserid($data['email'],$finds,$replaces);
+				self::findreplaceuserid($data['email'],$finds,$replaces);
 				break;
 			case 'SEND_MSG_TO_CONTACT':
 			case 'SEND_COPY_MSG_TO_USER':
@@ -177,11 +180,11 @@ class angkor_Helper
 		$replaces[]=$app->getCfg('fromname');
 		$replaces[]=$app->getCfg('mailfrom');
 		$replaces[]= $app->getCfg('sitename');
-		$replaces[]= angkor_Helper::convertURL(Uri::root());		
+		$replaces[]= self::convertURL(Uri::root());		
 				
 		$email->subject=str_replace($finds,$replaces,$email->subject);
 		$email->body=str_replace($finds,$replaces,$email->body);
-		$email->body = angkor_Helper::convertBodyImage_Href($email->body);
+		$email->body = self::convertBodyImage_Href($email->body);
 		
 		$email->sender_name=str_replace($finds,$replaces,$email->sender_name);
 		$email->sender_email=str_replace($finds,$replaces,$email->sender_email);
@@ -241,7 +244,7 @@ class angkor_Helper
 	function findreplaceuserid($email,&$finds,&$replaces)
 	{
 		$finds[]='{user_id}';
-		$replaces[]=angkor_Helper::getUserInfobyEmail($email,'id');
+		$replaces[]=self::getUserInfobyEmail($email,'id');
 	}
 	function getUserInfobyEmail($email,$field_name)
 	{
@@ -428,7 +431,7 @@ class angkor_Helper
 		$data=array();		
 		$data['code']=$code;
 		$data['lang']=$lang;
-		$data['lang_code']=angkor_Helper::getLanguageTag($lang);
+		$data['lang_code']=self::getLanguageTag($lang);
 		
 		$data['id']='';
 		$data['embed_image']=false;
@@ -449,7 +452,7 @@ class angkor_Helper
 	function parsingEmailCSS($email,$embed_image=false,$css_content=''){
 		
 		if($css_content==''){
-			$css = angkor_Helper::getCSS();		
+			$css = self::getCSS();		
 			if (!empty($css)) {
 				$css_content = $css->css;
 			}

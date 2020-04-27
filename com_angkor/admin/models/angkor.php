@@ -7,6 +7,8 @@ use Joomla\CMS\Language\LanguageHelper;
 use Joomla\Registry\Registry;
 use Joomla\CMS\Component\ComponentHelper;
 
+use Skurvish\Angkor\AngkorHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die( 'Restricted access' );
 //jimport('joomla.language.helper');
@@ -155,7 +157,7 @@ class AngkorModelAngkor extends BaseDatabaseModel
 	}
 	function getCSS()
 	{
-		$css = angkor_Helper::getCSS();		
+		$css = AngkorHelper::getCSS();		
 		return $css;
 	}
 }

@@ -5,6 +5,8 @@ use Joomla\CMS\Mail\Mail;
 use Joomla\CMS\Mail\MailHelper;
 use Joomla\CMS\Plugin\PluginHelper;
 
+use Skurvish\Angkor\AngkorHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die( 'Restricted access' );
 
@@ -12,6 +14,10 @@ class plgSystemAngkor extends CMSPlugin
 {
 	function __construct(&$subject, $config){
 		parent::__construct($subject, $config);
+		/* set up the angkor autoloader */
+		if (file_exists(JPATH_ADMINISTRATOR.'/components/com_angkor/autoloader.php')) {
+			require_once(JPATH_ADMINISTRATOR.'/components/com_angkor/autoloader.php');
+		}
 	}
 	/*
 	*	Render admin input css as css file for <link ...>
@@ -120,12 +126,12 @@ class angkorMailer extends Mail{
 		$emails = array();
 		$results = Factory::getApplication()->triggerEvent('onSendEmail', array (&$this,$nCounter));
 		
-		angkor_Helper::parsingEmailCSS($this,$this->embed_image);
+		AngkorHelper::parsingEmailCSS($this,$this->embed_image);
 		
 		if($this->embed_image)
 			$this->AltBody = 'Please use Email application which supports HTML Email to view the email';
 		else
-			$this->AltBody = angkor_Helper::getAltBody($this->Body);
+			$this->AltBody = AngkorHelper::getAltBody($this->Body);
 			
 		$return = parent::Send();			
 		

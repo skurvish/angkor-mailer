@@ -6,6 +6,7 @@ $version = "v4.0";
 $parts = [ ['folder' => 'com_angkor', 'xml' => 'com_angkor'],
 			['folder' => 'plg_angkor_joomla', 'xml' => 'joomla'],
 			['folder' => 'plg_system_angkor', 'xml' => 'angkor'],
+			['folder' => 'lib_angkor', 'xml' => 'angkorhelper'],
 		];
 $location = '../pkg_angkor/packages/';
 $package = '../pkg_angkor/';

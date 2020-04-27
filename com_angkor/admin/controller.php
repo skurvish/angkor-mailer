@@ -3,6 +3,8 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Language\Text;
 
+use Skurvish\Angkor\AngkorHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die( 'Restricted access' );
 
@@ -33,9 +35,9 @@ class angkorController extends BaseController
 		$code = Factory::getApplication()->input->get('code');
 		$lang = Factory::getApplication()->input->get('lang');
 		
-		$data = angkor_Helper::getEmail($code,$lang);
+		$data = AngkorHelper::getEmail($code,$lang);
 		
-		$availableFields = angkor_Helper::getAvailableFieldParameters($code);
+		$availableFields = AngkorHelper::getAvailableFieldParameters($code);
 		if($availableFields=='')
 			$data['parameters'] =  Text::_('VM_OTHER_MESSAGE_AVAILABLE_FIELS') . ' : '. Text::_('NO_FIELDS_PARAMETERS_AVAILABLE');
 		else

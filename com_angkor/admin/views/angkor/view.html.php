@@ -2,6 +2,8 @@
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView;
 
+use Skurvish\Angkor\AngkorHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die( 'Restricted access' );
 
@@ -16,7 +18,7 @@ class AngkorViewAngkor extends HtmlView
 		$this->languages_list = $model->get_language_list('language');
 		
 
-		$this->emailslist = angkor_Helper::getEmailsList();
+		$this->emailslist = AngkorHelper::getEmailsList();
 
 		$this->css = $model->getCSS();		
 

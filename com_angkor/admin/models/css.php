@@ -4,6 +4,8 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Object\CMSObject;
 use Joomla\CMS\Table\Table;
 
+use Skurvish\Angkor\AngkorHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die( 'Restricted access' );
 
@@ -33,13 +35,13 @@ class AngkorModelCSS extends BaseDatabaseModel
 	}
 	function getCSS()
 	{
-		$css = angkor_Helper::getCSS();		
+		$css = AngkorHelper::getCSS();		
 		return $css;
 	}
 	function saveCSS(){
 		$columns = ['id'=>'INT', 'css'=>'RAW'];
 
-		$data_css = angkor_Helper::getCSS();		
+		$data_css = AngkorHelper::getCSS();		
 	
 		$css = Table::getInstance('css', 'Table',array());		
 		$css->bind(Factory::getApplication()->input->getArray($columns));

@@ -1,12 +1,14 @@
 <?php 
 use Joomla\CMS\HTML\HTMLHelper;
 
+use Skurvish\Angkor\AngkorHelper;
+
 // Check to ensure this file is included in Joomla!
 defined('_JEXEC') or die( 'Restricted access' );
 
 HTMLHelper::_('behavior.switcher');
 HTMLHelper::_('behavior.tooltip');
-angkor_Helper::loadAssets();
+AngkorHelper::loadAssets();
 $this->document->setBuffer($this->loadTemplate('navigation'), 'modules', 'top');
 
 ?>
