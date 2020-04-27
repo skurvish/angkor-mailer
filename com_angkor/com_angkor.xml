@@ -70,6 +70,7 @@ User Name email, and optionally send them out as html email.]]>
 		<!-- ========================= -->		
 		<files folder='admin'>
 			<filename>angkor.php</filename>
+			<filename>autoloader.php</filename>
 			<filename>controller.php</filename>
 			<filename>access.xml</filename>
 			<filename>config.xml</filename>
