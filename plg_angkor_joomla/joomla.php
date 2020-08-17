@@ -403,7 +403,7 @@ class plgAngkorJoomla extends CMSPlugin
 		$data = $this->getData();
 		
 		$useractivation = intval($com_user_parameters->get('useractivation'));// 0 = none, 1=self, 2=admin
-		if($option=='com_users') {
+		if($option=='com_users' || $option == 'com_comprofiler') {
 			switch($task){
 				case 'register' :
 					if(intval($nCounter)===1){ // First Email to user
@@ -514,12 +514,10 @@ class plgAngkorJoomla extends CMSPlugin
 		return $row;
 	}
 	function getData(){
-		$data	= Factory::getApplication()->input->get('jform', array(), 'ARRAY');
-		if(COUNT($data)==0)
-			$data = Factory::getApplication()->input->get('post', array(), 'ARRAY');
+		$data	= Factory::getApplication()->input->getArray();
 		
-		$option = Factory::getApplication()->input->get('option');
-		if($option=='com_users'){
+		$option = $data['option'];
+		if($option=='com_users' || $option == 'com_comprofiler'){
 			$email ='';
 			if(isset($data['email']))
 				$email = $data['email'];
