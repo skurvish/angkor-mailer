@@ -522,6 +522,12 @@ class plgAngkorJoomla extends CMSPlugin
 			if(isset($data['email']))
 				$email = $data['email'];
 
+			if(isset($data['jform'])) {
+				$jform = $data['jform'];
+				if (isset($jform['email']))
+					$email = $jform['email'];
+			}
+
 			if(isset($data['email1']))
 				$email = $data['email1'];
 				
@@ -655,7 +661,7 @@ class plgAngkorJoomla extends CMSPlugin
 							SET `password`=".$db->Quote($crypt . ':' . $salt)
 							." WHERE `email`=".$db->Quote($email_address);
 					$db->setQuery($query);
-					$db->Query();	
+					$db->execute();	
 					$data['password_clear']=$password_clear;
 				}
 				//-------- End in case admin leave password blank, system will generate a random password
