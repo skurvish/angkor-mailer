@@ -285,9 +285,13 @@ class AngkorHelper
 								$tobereplaced[]=$href[0][0];	
 								if(trim($a_href)=='index.php' OR trim($a_href)=='/')
 									$url =$uri->root();					
-								else
-									$url =$site_url . Route::_($a_href);		
-									
+								else {
+									$route = Route::_($a_href);
+									/* Remove any trailing and leading slashes in the two parts, certain cases we have both */
+									$site_url = trim($site_url, '/');
+									$route = ltrim($route,'/');
+									$url = $site_url . '/' . $route;
+								}
 								$replacedby[]='href="'.$url.'"';
 							}	
 						}						
